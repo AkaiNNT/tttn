@@ -9,6 +9,21 @@
   </head>
 
   <body>
-    <%= yield %>
+  	<%= render "users/base/user_navbar" %>
+    <div class="main-container">
+      <div class="container">
+        <div class="row">
+          <!-- <%= yield :profile_cover %> -->
+          <%#= render "users/shared/profile_cover" %>
+          
+          <div class="col-sm-2 no-padding">
+            <%#= render "side_bar_public" %>
+          </div>
+          <div class="col-sm-10 no-padding">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
