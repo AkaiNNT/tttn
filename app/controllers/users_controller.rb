@@ -8,7 +8,11 @@ class UsersController < ApplicationController
 	end
   
   def update_profile
-  	@profile = UserProfile.new
+  	if current_user.updated_profile?
+  		@profile = UserProfile.find_by(user_id: current_user.id)
+  	else
+  		@profile = UserProfile.new
+  	end
   end
 
   private

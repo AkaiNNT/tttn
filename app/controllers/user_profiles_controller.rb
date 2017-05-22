@@ -1,6 +1,14 @@
 class UserProfilesController < ApplicationController
 	def create
 		@profile = UserProfile.new(profile_params.merge(user_id: current_user.id))
+		if @profile.save
+			current_user.update(updated_profile: true)
+			redirect_to root_path
+		end
+	end
+
+	def update
+		#mailam
 	end
 
 	private
