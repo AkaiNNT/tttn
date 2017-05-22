@@ -1,53 +1,62 @@
 <nav class="navbar navbar-default navbar-inverse" role="navigation">
   <div class="container-fluid">
-
-    <h1><a href="#">Company<span>logo</span></a></h1>
-
     <nav>
-      <a href="#" class="selected">Home</a>
       <ul class="nav navbar-nav navbar-right">
-        <li><p class="navbar-text">Already have an account?</p></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-          <ul id="login-dp" class="dropdown-menu">
-            <li>
-               <div class="row">
-                  <div class="col-md-12">
-                    Login via
-                    <div class="social-buttons">
-                      <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
-                      <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+        <% if user_signed_in? %>
+          <li><%= link_to content_tag("span", nil, class: "fa fa-sign-out") + " Sign Out", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><p class="navbar-text">Already have an account?</p></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu">
+              <li>
+                 <div class="row">
+                    <div class="col-md-12">
+                      Login via
+                      <div class="social-buttons">
+                        <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+                        <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+                      </div>
+                                      or
+                       <!-- <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                          <div class="form-group">
+                             <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                             <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                          </div>
+                          <div class="form-group">
+                             <label class="sr-only" for="exampleInputPassword2">Password</label>
+                             <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                                   <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+                          </div>
+                          <div class="form-group">
+                             <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                          </div>
+                          <div class="checkbox">
+                             <label>
+                             <input type="checkbox"> keep me logged-in
+                             </label>
+                          </div>
+                       </form> -->
+                      <%= simple_form_for(User.new, as: :user, url: "/users/sign_in") do |f| %>
+                        <div class="form-inputs">
+                          <%= f.input :email, required: false, autofocus: true %>
+                          <%= f.input :password, required: false %>
+                        </div>
+
+                        <div class="form-actions">
+                          <%= f.button :submit, "Log in" %>
+                        </div>
+                      <% end %>
                     </div>
-                                    or
-                     <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                        <div class="form-group">
-                           <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                           <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
-                        </div>
-                        <div class="form-group">
-                           <label class="sr-only" for="exampleInputPassword2">Password</label>
-                           <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                                 <div class="help-block text-right"><a href="">Forget the password ?</a></div>
-                        </div>
-                        <div class="form-group">
-                           <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                        </div>
-                        <div class="checkbox">
-                           <label>
-                           <input type="checkbox"> keep me logged-in
-                           </label>
-                        </div>
-                     </form>
-                  </div>
-                  <div class="bottom text-center">
-                    New here ? <a href="#"><b>Join Us</b></a>
-                  </div>
-               </div>
-            </li>
-          </ul>
-        </li>
+                    <div class="bottom text-center">
+                      New here ? <a href="#"><b>Join Us</b></a>
+                    </div>
+                 </div>
+              </li>
+            </ul>
+          </li>
+        <% end %>
       </ul>
-      <%= link_to content_tag("span", nil, class: "fa fa-sign-out") + " Sign Out", destroy_user_session_path, method: :delete %>
     </nav>
 
   </div>
